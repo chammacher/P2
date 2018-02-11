@@ -145,8 +145,15 @@ return new Symbol(sym.EOF);
 
 {DIGIT}+  { // NOTE: the following computation of the integer value does NOT
             //       check for overflow.  This must be changed.
-            int val = (new Integer(yytext())).intValue();
-            if ( val > Integer.MAX_VALUE){return Integer.MAX_VALUE;}
+            double d = (new Double(yytext())).doubleValue();
+            if ( d > Integer.MAX_VALUE) {
+                ErrMsg.fatal(yyline+1, CharNum.num,
+                                "integer literal too large; using max value");
+                int val = Integer.MAX_VALUE;
+            }
+            else {
+                int val = (new Integer(yytext())).intValue();
+            }
             Symbol S = new Symbol(sym.INTLITERAL,
                              new IntLitTokenVal(yyline+1, CharNum.num, val));
             CharNum.num += yytext().length();
