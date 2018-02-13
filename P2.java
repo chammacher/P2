@@ -16,6 +16,167 @@ public class P2 {
         CharNum.num = 1;
     
         // ADD CALLS TO OTHER TEST METHODS HERE
+        testTokens();
+        CharNum.num = 1;
+    }
+
+    /**
+     * testTokens
+     *
+     * Open and read from file Tokens.in
+     * For each token read, write the corresponding string and line number and char number to Tokens.out
+     * If the input file contains all tokens, one per line, we can verify
+     * correctness of the scanner by comparing the expected and output files
+     * (e.g., using a 'diff' command).
+     */
+    private static void testTokens() throws IOException {
+        // open input and output files
+        FileReader inFile = null;
+        PrintWriter outFile = null;
+        try {
+            inFile = new FileReader("Tokens.in");
+            outFile = new PrintWriter(new FileWriter("Tokens.out"));
+        } catch (FileNotFoundException ex) {
+            System.err.println("File Tokens.in not found.");
+            System.exit(-1);
+        } catch (IOException ex) {
+            System.err.println("Tokens.out cannot be opened.");
+            System.exit(-1);
+        }
+
+        // create and call the scanner
+        Yylex scanner = new Yylex(inFile);
+        Symbol token = scanner.next_token();
+        int lineCount = 0;
+        while (token.sym != sym.EOF) {
+            switch (token.sym) {
+                case sym.BOOL:
+                    outFile.println("bool CharNum: " + CharNum.num + " LineNum: " + linenum);
+                    break;
+                case sym.INT:
+                    outFile.println("int CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.VOID:
+                    outFile.println("void CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.TRUE:
+                    outFile.println("true CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.FALSE:
+                    outFile.println("false CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.STRUCT:
+                    outFile.println("struct CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.CIN:
+                    outFile.println("cin CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.COUT:
+                    outFile.println("cout CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.IF:
+                    outFile.println("if CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.ELSE:
+                    outFile.println("else CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.WHILE:
+                    outFile.println("while CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.RETURN:
+                    outFile.println("return CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.ID:
+                    outFile.println(((IdTokenVal)token.value).idVal + " CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.INTLITERAL:
+                    outFile.println(((IntLitTokenVal)token.value).intVal + " CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.STRINGLITERAL:
+                    outFile.println(((StrLitTokenVal)token.value).strVal + " CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.LCURLY:
+                    outFile.println("{ CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.RCURLY:
+                    outFile.println("} CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.LPAREN:
+                    outFile.println("( CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.RPAREN:
+                    outFile.println(") CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.SEMICOLON:
+                    outFile.println("; CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.COMMA:
+                    outFile.println(", CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.DOT:
+                    outFile.println(". CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.WRITE:
+                    outFile.println("<< CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.READ:
+                    outFile.println(">> CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.PLUSPLUS:
+                    outFile.println("++ CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.MINUSMINUS:
+                    outFile.println("-- CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.PLUS:
+                    outFile.println("+ CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.MINUS:
+                    outFile.println("- CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.TIMES:
+                    outFile.println("* CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.DIVIDE:
+                    outFile.println("/ CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.NOT:
+                    outFile.println("! CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.AND:
+                    outFile.println("&& CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.OR:
+                    outFile.println("|| CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.EQUALS:
+                    outFile.println("== CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.NOTEQUALS:
+                    outFile.println("!= CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.LESS:
+                    outFile.println("< CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.GREATER:
+                    outFile.println("> CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.LESSEQ:
+                    outFile.println("<= CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.GREATEREQ:
+                    outFile.println(">= CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                case sym.ASSIGN:
+                    outFile.println("= CharNum: " + CharNum.num + " LineNum: " + lineCount);
+                    break;
+                default:
+                    outFile.println("UNKNOWN TOKEN");
+            } // end switch
+
+            token = scanner.next_token();
+        } // end while
+        outFile.close();
     }
 
     /**
